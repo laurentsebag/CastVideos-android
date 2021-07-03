@@ -18,7 +18,7 @@ This Google Cast demo app shows how to cast videos from an Android device in a w
 1. Compile and deploy to your Android device.
 1. This sample includes a published app id in the res/values/strings.xml file so the project can be built and run without a need
   to register an app id. If you want to use your own receiver (which is required if you need to debug the receiver),
-  update "app_id" in that file with your own app id.
+  update Configuration.java with your own app id.
 
 ## Automated UI Testing on Cast Sender App
 This Google Cast demo app also includes sample Cast test cases in [androidTest/](androidTest/com/google/sample/cast/refplayer/).

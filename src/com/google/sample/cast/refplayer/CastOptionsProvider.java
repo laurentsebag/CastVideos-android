@@ -34,6 +34,8 @@ import android.content.Context;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.google.sample.cast.refplayer.Configuration.APP_ID;
+
 /**
  * Implements {@link OptionsProvider} to provide {@link CastOptions}.
  */
@@ -58,7 +60,7 @@ public class CastOptionsProvider implements OptionsProvider {
                 .build();
         return new CastOptions.Builder()
                 .setLaunchOptions(launchOptions)
-                .setReceiverApplicationId(context.getString(R.string.app_id))
+                .setReceiverApplicationId(APP_ID)
                 .setCastMediaOptions(mediaOptions)
                 .build();
     }

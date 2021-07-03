@@ -42,6 +42,8 @@ import android.widget.ImageButton;
 
 import java.util.List;
 
+import static com.google.sample.cast.refplayer.Configuration.CATALOG_URL;
+
 /**
  * A fragment to host a list view of the video catalog.
  */
@@ -49,8 +51,7 @@ public class VideoBrowserFragment extends Fragment implements VideoListAdapter.I
         LoaderManager.LoaderCallbacks<List<MediaInfo>> {
 
     private static final String TAG = "VideoBrowserFragment";
-    private static final String CATALOG_URL =
-            "https://commondatastorage.googleapis.com/gtv-videos-bucket/CastVideos/f.json";
+
     private RecyclerView mRecyclerView;
     private VideoListAdapter mAdapter;
     private View mEmptyView;

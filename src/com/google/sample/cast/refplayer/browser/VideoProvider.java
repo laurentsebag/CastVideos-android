@@ -48,7 +48,6 @@ public class VideoProvider {
     private static final String TAG_HLS = "hls";
     private static final String TAG_DASH = "dash";
     private static final String TAG_MP4 = "mp4";
-    private static final String TAG_IMAGES = "images";
     private static final String TAG_VIDEO_TYPE = "type";
     private static final String TAG_VIDEO_URL = "url";
     private static final String TAG_VIDEO_MIME = "mime";
@@ -109,18 +108,12 @@ public class VideoProvider {
         if (null != mediaList) {
             return mediaList;
         }
-        Map<String, String> urlPrefixMap = new HashMap<>();
         mediaList = new ArrayList<>();
         JSONObject jsonObj = new VideoProvider().parseUrl(url);
         JSONArray categories = jsonObj.getJSONArray(TAG_CATEGORIES);
         if (null != categories) {
             for (int i = 0; i < categories.length(); i++) {
                 JSONObject category = categories.getJSONObject(i);
-                urlPrefixMap.put(TAG_HLS, category.getString(TAG_HLS));
-                urlPrefixMap.put(TAG_DASH, category.getString(TAG_DASH));
-                urlPrefixMap.put(TAG_MP4, category.getString(TAG_MP4));
-                urlPrefixMap.put(TAG_IMAGES, category.getString(TAG_IMAGES));
-                urlPrefixMap.put(TAG_TRACKS, category.getString(TAG_TRACKS));
                 category.getString(TAG_NAME);
                 JSONArray videos = category.getJSONArray(TAG_VIDEOS);
                 if (null != videos) {
@@ -136,7 +129,7 @@ public class VideoProvider {
                         for (int k = 0; k < videoSpecs.length(); k++) {
                             JSONObject videoSpec = videoSpecs.getJSONObject(k);
                             if (TARGET_FORMAT.equals(videoSpec.getString(TAG_VIDEO_TYPE))) {
-                                videoUrl = urlPrefixMap.get(TARGET_FORMAT) + videoSpec
+                                videoUrl = videoSpec
                                         .getString(TAG_VIDEO_URL);
                                 mimeType = videoSpec.getString(TAG_VIDEO_MIME);
                             }
@@ -144,8 +137,8 @@ public class VideoProvider {
                         if (videoUrl == null) {
                             continue;
                         }
-                        String imageUrl = urlPrefixMap.get(TAG_IMAGES) + video.getString(TAG_THUMB);
-                        String bigImageUrl = urlPrefixMap.get(TAG_IMAGES) + video
+                        String imageUrl = video.getString(TAG_THUMB);
+                        String bigImageUrl = video
                                 .getString(TAG_IMG_780_1200);
                         String title = video.getString(TAG_TITLE);
                         String studio = video.getString(TAG_STUDIO);
@@ -160,8 +153,7 @@ public class VideoProvider {
                                     tracks.add(buildTrack(track.getLong(TAG_TRACK_ID),
                                             track.getString(TAG_TRACK_TYPE),
                                             track.getString(TAG_TRACK_SUBTYPE),
-                                            urlPrefixMap.get(TAG_TRACKS) + track
-                                                    .getString(TAG_TRACK_CONTENT_ID),
+                                            track.getString(TAG_TRACK_CONTENT_ID),
                                             track.getString(TAG_TRACK_NAME),
                                             track.getString(TAG_TRACK_LANGUAGE)
                                     ));
